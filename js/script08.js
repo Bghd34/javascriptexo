@@ -10,21 +10,21 @@ Number.prototype.formatMoney = function (c, d, t) {
 }; // Source: http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
 
 function ElementReader() {
-    this.InputCheckbox = function (idInput) {
+    this.InputCheckbox = (idInput) => {
         var input = document.getElementById(idInput);
         if (input === null) {
             return undefined;
         }
         return input.checked;
     };
-    this.InputInt = function (idInput) {
+    this.InputInt = (idInput) => {
         var input = document.getElementById(idInput);
         if (input === null) {
             return undefined;
         }
         return parseInt(input.value);
     };
-    this.Select = function (idSelect) {
+    this.Select = (idSelect) => {
         var select = document.getElementById(idSelect);
         if (select === null) {
             return undefined;
@@ -35,13 +35,13 @@ function ElementReader() {
 }
 
 function ElementWriter() {
-    this.Tag = function (idTag, value) {
+    this.Tag = (idTag, value) => {
         var tag = document.getElementById(idTag);
         if (tag !== null) {
             tag.innerHTML = value;
         }
     };
-    this.TagCurrency = function (idTag, value) {
+    this.TagCurrency = (idTag, value) => {
         this.Tag(idTag, value.formatMoney(2, ',', '&nbsp;') + '$');
     };
 }
@@ -57,7 +57,7 @@ function salaryCalculator() {
     this.additionAllowance;
     this.gender;
     this.dependents;
-    this.getAdditions = function () {
+    this.getAdditions = () => {
         var additions = 0;
         if (this.additionBonus === true) {
             additions += additionBonusValue;
@@ -67,16 +67,16 @@ function salaryCalculator() {
         }
         return additions;
     };
-    this.getCanadaPensionPlan = function () {
+    this.getCanadaPensionPlan = () => {
         return this.grossSalary * canadaPensionPlanRate;
     };
-    this.getEmploymentInsurance = function () {
+    this.getEmploymentInsurance = () => {
         return this.grossSalary * employmentInsuranceRate;
     };
-    this.getFinalSalary = function () {
+    this.getFinalSalary = () => {
         return this.grossSalary - this.getCanadaPensionPlan() - this.getEmploymentInsurance() - this.getIncomeTax() + this.getAdditions();
     };
-    this.getIncomeTax = function () {
+    this.getIncomeTax = () => {
         var relevantIncomeTaxRate = incomeTaxRate;
         if (this.gender === 'F') {
             relevantIncomeTaxRate -= 0.02;
